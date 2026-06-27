@@ -1,0 +1,61 @@
+/* Torque — design tokens. Values verbatim from design-reference :root (gallery-only
+   --canvas / --canvas-grid intentionally excluded — see design-tokens.md). */
+:root {
+  --bg-page: #0B0D15;
+  --bg-card: #151826;
+  --bg-inset: #1D2133;
+  --bg-elevated: #262C44;
+
+  --text-primary: #EEF1F8;
+  --text-secondary: #9AA3BC;
+  --text-tertiary: #6E7691;
+
+  --border: #242A3C;
+  --border-strong: #353E58;
+
+  --accent: #3F7BFF;            /* brand azure (was #FFC400) */
+  --accent-ink: #FFFFFF;        /* white label on azure (was near-black) */
+  --accent-soft: rgba(63, 123, 255, 0.16);
+
+  /* spec-named aliases + primary ramp */
+  --primary: var(--accent);
+  --on-primary: var(--accent-ink);
+  --primary-tint: var(--accent-soft);
+  --primary-hover: #5C90FF;
+  --primary-press: #2E66E6;
+  --primary-border: rgba(63, 123, 255, 0.55);
+  --focus-ring: rgba(63, 123, 255, 0.45);
+
+  --hero-from: #2A47A8;
+  --hero-to: #16244F;
+
+  --red: #FF5A4D;
+  --red-soft: rgba(255, 90, 77, 0.15);
+  --green: #2FB87B;
+  --green-soft: rgba(47, 184, 123, 0.15);
+  --success: var(--green);
+  --amber: #FFAE34;
+  --amber-soft: rgba(255, 174, 52, 0.15);
+  --info: #4A93FF;
+  --info-soft: rgba(74, 147, 255, 0.15);
+
+  /* font stacks. CJK faces are applied directly by the `.jp` rules in base.css,
+     which swap per <html lang> (e.g. Noto Sans SC for zh). */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@keyframes torqueReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes flamePulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}

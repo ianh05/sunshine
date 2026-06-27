@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/base.css">
+<style>body{background:#16181b;margin:0;padding:16px;font-family:Inter,sans-serif}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cell{background:#1f2329;border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.cell svg{width:104px;height:104px}
+.lab{font:11px JetBrains Mono,monospace;color:#a6adb6}</style></head>
+<body><div class="grid" id="g"></div>
+<script type="module">
+import { signFor } from './js/components/signs.js';
+const ids=['signs1','signs2','signs3','signs4','signs5','signs6','row1','row2','row3','row4','row5','row6','hw1','hw2','hw3','hw4','hw5','hw6','mk1','mk2','mk3','mk4','mk5','mk6'];
+document.getElementById('g').innerHTML = ids.map(id=>`<div class="cell">${signFor(id)}<span class="lab">${id}</span></div>`).join('');
+</script></body></html>

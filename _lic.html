@@ -1,0 +1,6 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#0d0e10}#f{border:0;display:block;margin:0 auto}</style></head>
+<body><iframe id="f" width="432" height="900"></iframe><script>
+localStorage.setItem('torque.lang', JSON.stringify('en'));
+const f=document.getElementById('f'); f.src='/index.html#/license';
+f.onload=()=>setTimeout(()=>{ f.contentDocument.querySelector('[data-mode="convert"]')?.click(); },1500);
+</script></body></html>

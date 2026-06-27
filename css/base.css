@@ -1,0 +1,208 @@
+/* ---- reset & typography ---- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  color: var(--text-primary);
+  background: #0d0e10;                 /* darker page gutter behind the app column */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* author display rules otherwise beat the UA [hidden] rule — enforce it */
+[hidden] { display: none !important; }
+
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+input, textarea, select { font: inherit; }
+
+/* CJK parentheticals keep a CJK face even in EN/ZH UI */
+.jp { font-family: 'Noto Sans JP', sans-serif; font-weight: 500; }
+html[lang="zh"] .jp { font-family: 'Noto Sans SC', 'Noto Sans JP', sans-serif; }
+.muted { color: var(--text-tertiary); font-weight: 400; }
+
+/* Material Symbols */
+.msi {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 0;
+  vertical-align: middle;
+}
+
+/* hide scrollbars (matches reference) but keep scrollability */
+::-webkit-scrollbar { width: 0; height: 0; }
+* { scrollbar-width: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---- app frame (the centered phone column) ---- */
+.app-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  background: var(--bg-page);
+  overflow: hidden;
+}
+/* Desktop / tablet: once the viewport is wider than the column, frame the
+   centered column so it reads as a deliberate panel rather than a floating strip.
+   Kicks in right at the column's max-width so there is never a borderless gap. */
+@media (min-width: 481px) {
+  .app-frame {
+    border-left: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* ---- content area ---- */
+.content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg-page);
+  position: relative;
+}
+.content--in { animation: screenIn 0.18s ease both; }
+.content:focus { outline: none; }
+
+/* ---- top bars ---- */
+.topbar {
+  flex: 0 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid var(--border);
+  background: var(--bg-page);
+}
+.topbar--home { padding: 0 20px; }
+.topbar--back { padding: 0 12px 0 8px; }
+
+.brand { display: flex; align-items: center; gap: 13px; }
+.brand__logo {
+  width: 40px; height: 30px;
+  background: url('../logo.png') center / contain no-repeat;
+  border-radius: 8px;
+}
+.brand__text { display: flex; flex-direction: column; line-height: 1; }
+.brand__mark {
+  font-family: var(--font-display);
+  font-weight: 800; font-stretch: 125%;
+  font-size: 18px; letter-spacing: 1px;
+  color: var(--text-primary);
+}
+.brand__sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 9px; letter-spacing: 1px;
+  color: var(--text-tertiary); margin-top: 2px;
+}
+
+.langpill {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 10px;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+}
+.langpill__code { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.langind {
+  display: flex; align-items: center; gap: 4px;
+  padding: 7px 9px; background: transparent;
+  color: var(--text-secondary);
+}
+
+.backbar__left { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.iconbtn {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: var(--text-primary);
+}
+.backbar__title {
+  font-weight: 700; font-size: 17px; color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ---- bottom tab bar ---- */
+.tabbar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 8px 8px 12px;
+  border-top: 0.5px solid var(--border);
+  background: var(--bg-card);
+}
+.tab {
+  flex: 1;
+  min-height: 46px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding-top: 3px;
+  color: var(--text-secondary);
+}
+.tab__label { font-size: 11px; font-weight: 500; }
+.tab--active { color: var(--accent); }
+.tab--active .tab__label { font-weight: 600; }
+
+/* ---- language switcher sheet ---- */
+.sheet { position: fixed; inset: 0; z-index: 100; }
+.sheet__scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.55); animation: screenIn 0.15s ease; }
+.sheet__panel {
+  position: absolute;
+  left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: var(--bg-card);
+  border-top-left-radius: 18px; border-top-right-radius: 18px;
+  border-top: 0.5px solid var(--border);
+  padding: 10px 16px calc(20px + env(safe-area-inset-bottom));
+  animation: sheetUp 0.22s ease;
+}
+@keyframes sheetUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+.sheet__handle {
+  width: 38px; height: 4px; border-radius: 2px;
+  background: var(--border-strong); margin: 4px auto 12px;
+}
+.sheet__title {
+  margin: 0 0 12px; font-family: var(--font-display);
+  font-weight: 800; font-stretch: 108%; font-size: 19px;
+}
+.sheet__list { display: flex; flex-direction: column; gap: 8px; }
+.langrow {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 54px; padding: 0 14px;
+  background: var(--bg-page);
+  border: 0.5px solid var(--border); border-radius: 12px;
+  text-align: left;
+}
+.langrow--sel { border: 2px solid var(--primary-border); background: var(--accent-soft); }
+.langrow__text { display: flex; flex-direction: column; gap: 1px; }
+.langrow__native { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.langrow__en { font-size: 12.5px; color: var(--text-tertiary); }
+.langrow__check { color: var(--accent); }
+.radio {
+  display: inline-block; flex: 0 0 auto;
+  width: 21px; height: 21px; border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: transparent;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><script>
+// TEMP verification helper — seeds localStorage then redirects. Deleted after QA.
+const p = new URLSearchParams(location.search);
+localStorage.setItem('torque.lang', JSON.stringify(p.get('lang') || 'en'));
+if (p.get('returning')) {
+  localStorage.setItem('torque.quiz', JSON.stringify({
+    xp: 1240, streak: 12, level: 4,
+    topicProgress: { signs: 12, row: 3, highway: 0, markings: 6 },
+    unlockedNotes: [
+      { id: 'signs1', topicId: 'signs', learned: true },
+      { id: 'row5', topicId: 'signs', learned: true },
+      { id: 'hw1', topicId: 'signs', learned: false },
+    ],
+    missed: ['hw1'], lastTopic: 'markings',
+  }));
+}
+if (p.get('draft')) {
+  localStorage.setItem('torque.reserveDraft', JSON.stringify({
+    lesson: { id: 'program4w', duration: 50, price: 200000 },
+    date: { dow: 'Wed', day: 18 }, time: '11:00',
+    name: 'Mai Tran', phone: '080-1234-5678', email: 'mai.tran@email.com', note: '',
+    code: p.get('code') ? 'TQ-8F4K' : null,
+  }));
+}
+location.replace('/index.html#' + (p.get('to') || '/home'));
+</script></body></html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;background:#0d0e10}#f{border:0;display:block;margin:0 auto}</style></head>
+<body><iframe id="f" width="432" height="900"></iframe>
+<script>
+// TEMP QA driver. params: topic, adv (advance N questions), pick (reveal). Deleted after QA.
+const p = new URLSearchParams(location.search);
+const topic = p.get('topic') || 'signs';
+const adv = Number(p.get('adv') || 0);
+const pick = p.get('pick');
+localStorage.setItem('torque.lang', JSON.stringify(p.get('lang') || 'en'));
+localStorage.setItem('torque.quiz', JSON.stringify({ xp: 100, streak: 5, level: 1, lastTopic: topic, topicProgress:{}, unlockedNotes:[], missed:[] }));
+const f = document.getElementById('f');
+f.src = '/index.html#/study/quiz';
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+f.onload = async () => {
+  await sleep(1500);
+  const d = () => f.contentDocument;
+  for (let i = 0; i < adv; i++) {
+    d().querySelector('[data-opt]')?.click(); await sleep(120);
+    d().querySelector('[data-check]')?.click(); await sleep(120);
+    d().querySelector('[data-next]')?.click(); await sleep(180);
+  }
+  if (pick != null) {
+    const opts = d().querySelectorAll('[data-opt]');
+    if (opts[Number(pick)]) opts[Number(pick)].click(); await sleep(150);
+    d().querySelector('[data-check]')?.click();
+  }
+};
+</script></body></html>

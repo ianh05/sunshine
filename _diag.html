@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{font:19px monospace;background:#111;color:#0f0;margin:0;padding:10px;white-space:pre-wrap}#f{position:fixed;left:-9999px}</style></head>
+<body><div id="out">measuring…</div><iframe id="f"></iframe><script>
+localStorage.setItem('torque.lang', JSON.stringify('en'));
+const f=document.getElementById('f'); f.style.width='432px'; f.style.height='900px';
+f.src='/index.html#/onboarding/language';
+f.onload=()=>setTimeout(()=>{const d=f.contentDocument,w=f.contentWindow,de=d.documentElement;
+let worst=[];d.querySelectorAll('*').forEach(el=>{const r=el.getBoundingClientRect();if(r.right>w.innerWidth+0.5)worst.push([Math.round(r.right),el.className||el.tagName]);});
+worst.sort((a,b)=>b[0]-a[0]);
+document.getElementById('out').textContent=`innerW=${w.innerWidth} docScrollW=${de.scrollWidth} overflowX=${de.scrollWidth>w.innerWidth?'YES':'no'}\npast-right:\n`+worst.slice(0,10).map(x=>x.join('  ')).join('\n');},2500);
+</script></body></html>
